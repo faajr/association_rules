@@ -130,7 +130,6 @@ Aplikasi dideploy menggunakan Streamlit Community Cloud sehingga dapat diakses s
 * NumPy
 * Scikit-Learn
 * FP-Growth (mlxtend)
-* Cosine Similarity
 * Collaborative Filtering
 
 ---
