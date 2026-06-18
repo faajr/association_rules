@@ -1,4 +1,4 @@
-# 🛒 Association Rules Recommendation Dashboard
+# 🛒 Dashboard Association Rules Recommendation
 
 Aplikasi web untuk menganalisis pola pembelian pelanggan dan menghasilkan rekomendasi produk menggunakan kombinasi metode **Association Rules (FP-Growth)**, **Content-Based Filtering**, dan **Collaborative Filtering**, dibangun dengan **Streamlit**.
 
