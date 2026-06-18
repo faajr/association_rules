@@ -2,7 +2,7 @@
 
 Aplikasi web untuk menganalisis pola pembelian pelanggan dan menghasilkan rekomendasi produk menggunakan kombinasi metode **Association Rules (FP-Growth)**, **Content-Based Filtering**, dan **Collaborative Filtering**, dibangun dengan **Streamlit**.
 
-🔗 **Live Demo:** <a href="https://apprules.streamlit.app/" target="_blank">LIVE DEMO</a>
+🔗 **Live Demo:** <a href="https://apprules.streamlit.app/" target="_blank">association_rules</a>
 
 ---
 
