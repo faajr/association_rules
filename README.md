@@ -1,97 +1,152 @@
-# 📊 Sales Prediction Dashboard
+# 🛒 Association Rules Recommendation Dashboard
 
-Aplikasi web untuk memprediksi penjualan toko menggunakan model **XGBoost Regression**, dibangun dengan **Streamlit**.
+Aplikasi web untuk menganalisis pola pembelian pelanggan dan menghasilkan rekomendasi produk menggunakan kombinasi metode **Association Rules (FP-Growth)**, **Content-Based Filtering**, dan **Collaborative Filtering**, dibangun dengan **Streamlit**.
 
-🔗 **Live Demo:** https://sales-prediction-app-bsqrz7yumyezg7waaux67l.streamlit.app/
+🔗 **Live Demo:** https://apprules.streamlit.app/
 
 ---
 
 ## 📌 Tentang Project
 
-Project ini memprediksi nilai *Sales* sebuah toko berdasarkan kondisi operasional harian (hari, promo, libur, dll) menggunakan model XGBoost yang dilatih dari data historis penjualan toko.
+Project ini bertujuan mengidentifikasi hubungan antar produk yang sering dibeli pelanggan serta memberikan rekomendasi produk yang relevan berdasarkan histori transaksi retail.
 
-### Performa Model
+Aplikasi menggabungkan tiga pendekatan rekomendasi:
 
-| Metrik | Nilai |
-|---|---|
-| R² | 0.80 |
-| MAE | 1159.25 |
-| RMSE | 1717.23	 |
-| MAPE | 21.00% |
+* **Association Rules (FP-Growth)** untuk menemukan pola pembelian bersamaan (Market Basket Analysis).
+* **Content-Based Filtering** untuk merekomendasikan produk dengan karakteristik serupa.
+* **Collaborative Filtering** untuk merekomendasikan produk berdasarkan perilaku pelanggan yang mirip.
+
+Dataset yang digunakan berasal dari transaksi retail online yang berisi informasi invoice, produk, kuantitas, harga, dan pelanggan.
+
+---
+
+## 🎯 Tujuan Analisis
+
+* Menemukan produk yang sering dibeli bersama.
+* Memberikan rekomendasi produk secara otomatis.
+* Membantu strategi cross-selling dan bundling produk.
+* Mengidentifikasi preferensi pelanggan berdasarkan histori pembelian.
 
 ---
 
 ## 🗂️ Struktur Project
 
-```
-sales_app/
-├── app.py              # Aplikasi Streamlit
-├── model_xgb.pkl        # Model XGBoost terlatih (joblib)
-├── requirements.txt     # Daftar dependency
+```text
+assorules/
+├── app.py                  # Aplikasi Streamlit
+├── model/
+│   ├── df_master_cf
+│   ├── product_corr
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## ⚙️ Fitur Input
+## ⚙️ Fitur Dashboard
 
-| Fitur | Keterangan |
-|---|---|
-| Store | ID toko (1–1115) |
-| Day Of Week | Hari (Senin–Minggu) |
-| Promo | Status promo aktif |
-| State Holiday | Jenis hari libur nasional |
-| School Holiday | Status libur sekolah |
-| Month | Bulan (1–12) |
-| Is Weekend | Otomatis dari Day Of Week |
-| Is Payday Period | Periode gajian (manual) |
-| Store Avg Customer | Rata-rata jumlah customer historis |
+| Fitur                   | Keterangan                                         |
+| ----------------------- | -------------------------------------------------- |
+| Product Recommendation  | Rekomendasi produk berdasarkan produk yang dipilih |
+| Content-Based Filtering | Menampilkan produk dengan karakteristik serupa     |
+| Collaborative Filtering | Menampilkan produk yang disukai pelanggan serupa   |
+| FP-Growth Analysis      | Menampilkan pola pembelian yang sering terjadi     |
+| Market Basket Analysis  | Analisis kombinasi produk dalam satu transaksi     |
+| Interactive Dashboard   | Visualisasi dan eksplorasi data secara interaktif  |
 
-> `day_of_month` dan `week_of_year` diisi otomatis berdasarkan tanggal saat aplikasi dijalankan.
+---
+
+## 📊 Metode yang Digunakan
+
+### 1. Content-Based Filtering
+
+Merekomendasikan produk berdasarkan kemiripan atribut atau karakteristik produk.
+
+Contoh:
+
+```text
+KNITTED UNION FLAG HOT WATER BOTTLE
+→ WHITE SKULL HOT WATER BOTTLE
+```
+
+### 2. Collaborative Filtering
+
+Merekomendasikan produk berdasarkan pola pembelian pelanggan lain yang memiliki perilaku serupa.
+
+Contoh:
+
+```text
+RED WOOLLY HOTTIE WHITE HEART
+→ SCOTTIE DOG HOT WATER BOTTLE
+```
+
+### 3. FP-Growth
+
+Digunakan untuk menemukan frequent itemsets dan association rules dari transaksi pelanggan.
+
+Output yang dihasilkan:
+
+* Support
+* Confidence
+* Lift Ratio
 
 ---
 
 ## 🚀 Cara Menjalankan Lokal
 
 ```bash
-# 1. Clone repo
-git clone https://github.com/Rangga-a/sales-prediction-app.git
-cd sales-prediction-app
+# Clone repository
+git clone https://github.com/faajr/asso_rules.git
 
-# 2. Buat virtual environment
-python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # Mac/Linux
+# Masuk ke folder project
+cd assorules
 
-# 3. Install dependency
+# Install dependency
 pip install -r requirements.txt
 
-# 4. Jalankan aplikasi
+# Jalankan aplikasi
 streamlit run app.py
 ```
 
-Aplikasi akan terbuka otomatis di `http://localhost:8501`.
+Aplikasi akan berjalan di:
+
+```text
+http://localhost:8501
+```
 
 ---
 
 ## 🌐 Deploy
 
-Aplikasi ini dideploy menggunakan **Streamlit Community Cloud**. Setiap `git push` ke branch `main` akan otomatis memicu redeploy.
+Aplikasi dideploy menggunakan Streamlit Community Cloud sehingga dapat diakses secara online melalui browser tanpa instalasi tambahan.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Python**
-- **XGBoost** — model regresi
-- **Streamlit** — web app framework
-- **Plotly** — visualisasi gauge chart
-- **Pandas, Joblib** — pengolahan data & model serialization
+* Python
+* Streamlit
+* Pandas
+* NumPy
+* Scikit-Learn
+* FP-Growth (mlxtend)
+* Cosine Similarity
+* Collaborative Filtering
+
+---
+
+## 📈 Manfaat Bisnis
+
+* Meningkatkan peluang cross-selling.
+* Membantu penyusunan paket bundling produk.
+* Memahami perilaku pembelian pelanggan.
+* Mendukung pengambilan keputusan pemasaran berbasis data.
+* Mengoptimalkan strategi promosi dan penempatan produk.
 
 ---
 
 ## ⚠️ Catatan
 
-- Model dilatih menggunakan data historis penjualan ritel.
-- Beberapa fitur (`store_avg_customer`) menggunakan nilai input manual sebagai pendekatan, karena data historis real-time per toko tidak tersedia di aplikasi.
-- Project ini dibuat untuk tujuan pembelajaran/akademik.
+* Hasil rekomendasi bergantung pada kualitas dan jumlah data transaksi yang tersedia.
+* Tidak semua produk akan menghasilkan association rules yang kuat.
+* Project ini dibuat untuk tujuan pembelajaran data mining, machine learning, dan sistem rekomendasi pada data retail.
